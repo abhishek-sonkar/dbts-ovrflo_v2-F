@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from 'react';
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -33,9 +33,14 @@ import CountCard from "./CountCard";
 
 import AccountPopover from "./AccountPopover";
 
+
+import { Collapse } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Link as Scroll } from 'react-scroll';
+
 const StyledDiv = styled('div')({
   minHeight: '100vh',
-  backgroundImage: `url(${process.env.PUBLIC_URL + '/assets/bg.jpg'})`,
+  backgroundImage: `url(${process.env.PUBLIC_URL + '/assets/bg.png'})`,
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover'
 });
@@ -94,8 +99,24 @@ const StyledUser = styled('div')(({ theme }) => ({
   borderRadius: Number(theme.shape.borderRadius) * 1.5,
   backgroundColor: "#A9A9A9"
 }));
+const StyledExpandMoreIcon = styled(ExpandMoreIcon)({
+  color: '#fff',
+  fontSize: '4rem'
+});
+const StyledContainer = styled('div')({
+  minHeight: '100vh',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center'
+});
 
 export default function Dashboard(props) {
+
+  const [checked, setChecked] = useState(false);
+  useEffect(() => {
+    setChecked(true);
+  }, []);
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
@@ -105,80 +126,88 @@ export default function Dashboard(props) {
     setOpen(false);
   };
 
+
+
   return (
     <StyledDiv>
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <StyledAppBar elevation={0}>
-          <StyledToolbar>
-            <IconButton
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={{ mr: 2, ...(open && { display: "none" }) }}
-            >
-              <StyledSortIcon />
-            </IconButton>
-            <h1 style={{ flexGrow: '1' }}>Doubts<span style={{ color: '#5AFF3D' }}>Overflow</span></h1>
-            <IconButton sx={{ p: 0 }}>
-              <AccountPopover {...props} />
-            </IconButton>
-          </StyledToolbar>
-        </StyledAppBar>
-        <Drawer
-          background='#5AFF3D'
-          sx={{
+      <CssBaseline />
+      {/* <Box sx={{ display: "flex" }}> */}
+      <StyledAppBar elevation={0}>
+        <StyledToolbar>
+          <IconButton
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2, ...(open && { display: "none" }) }}
+          >
+            <StyledSortIcon />
+          </IconButton>
+          <h1 style={{ flexGrow: '1' }}>Doubts<span style={{ color: '#FF5733' }}>Overflow</span></h1>
+          <IconButton sx={{ p: 0 }}>
+            <AccountPopover {...props} />
+          </IconButton>
+        </StyledToolbar>
+      </StyledAppBar>
+      <Drawer
+        background='#5AFF3D'
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
             width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-              boxSizing: "border-box"
-            }
-          }}
-          variant="persistent"
-          anchor="left"
-          open={open}
-        >
-          <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "ltr" ? (
-                <ChevronLeftIcon />
-              ) : (
-                <ChevronRightIcon />
-              )}
-            </IconButton>
-          </DrawerHeader>
-          <Box sx={{ mb: 5, mx: 2.5 }}>
-            <StyledUser>
-              <Avatar src="https://propami.com/assets/corals/images/avatars/avatar_1.png" alt="photoURL" />
-              <Box sx={{ ml: 2 }}>
-                <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                  {props.fname}
-                </Typography>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  {props.lname}
-                </Typography>
-              </Box>
-            </StyledUser>
-          </Box>
-          <Divider />
-          <List>
-            {["Dashboard", "Explore", "Ask Question", "Your Profile", "Not Found"].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Drawer>
-        <Main open={open}>
-          <DrawerHeader />
-          <Grid container justifyContent="center" paddingLeft={2} paddingBottom={2}>
-            <Grid item xs={10} md={12} lg={8}>
+            boxSizing: "border-box"
+          }
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === "ltr" ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
+          </IconButton>
+        </DrawerHeader>
+        <Box sx={{ mb: 5, mx: 2.5 }}>
+          <StyledUser>
+            <Avatar src="https://propami.com/assets/corals/images/avatars/avatar_1.png" alt="photoURL" />
+            <Box sx={{ ml: 2 }}>
+              <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
+                {props.fname}
+              </Typography>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                {props.lname}
+              </Typography>
+            </Box>
+          </StyledUser>
+        </Box>
+        <Divider />
+        <List>
+          {["Dashboard", "Explore", "Ask Question", "Your Profile", "Not Found"].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <Main open={open}>
+        <DrawerHeader />
+        <Grid container justifyContent="center">
+          <Grid item>
+            {/* <Collapse
+            in={checked}
+            {...(checked ? { timeout: 1500 } : {})}
+            collapsedheight={50}
+          > */}
+            <div style={{ textAlign: 'center' }}>
               <Box sx={{ p: 3, pb: 1 }} dir="ltr">
                 <Card
                   sx={{
@@ -206,8 +235,11 @@ export default function Dashboard(props) {
                   />
                 </Card>
               </Box>
-            </Grid>
-            <Grid container spacing={2} justifyContent="center">
+            </div>
+          </Grid>
+          {/* </Collapse> */}
+          <Grid item>
+            <Grid container spacing={2} direction="column" alignItems="center">
               <Grid item>
                 <CountCard label={"Total Questions"} count={180} />
               </Grid>
@@ -219,6 +251,17 @@ export default function Dashboard(props) {
               </Grid>
             </Grid>
           </Grid>
+        </Grid>
+        <Box sx={{ textAlign: 'center' }} >
+          <Scroll to="action" smooth={true}>
+            <IconButton>
+              <StyledExpandMoreIcon />
+            </IconButton>
+          </Scroll>
+        </Box>
+
+
+        <StyledContainer id='action'>
           <Grid container spacing={3} justifyContent="center">
             <PostCard
               text={"Explore Questions"}
@@ -229,8 +272,10 @@ export default function Dashboard(props) {
               image={"https://source.unsplash.com/random"}
             />
           </Grid>
-        </Main>
-      </Box>
+        </StyledContainer>
+
+      </Main>
+      {/* </Box> */}
     </StyledDiv>
   );
 }

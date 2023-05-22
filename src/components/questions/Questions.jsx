@@ -5,7 +5,12 @@ import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import QuesCard from './QuesCard';
 
-
+const StyledDiv = styled('div')({
+  minHeight: '100vh',
+  backgroundImage: `url(${process.env.PUBLIC_URL + '/assets/bg.png'})`,
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover'
+});
 const StyledGrid = styled(Grid)({
   paddingLeft: '10%',
   paddingRight: '10%',
@@ -42,6 +47,7 @@ export default function Questions() {
 
   return (
     <>
+    <StyledDiv>
       <StyledGrid container spacing={2}>
         <Grid item xs={12} >
           <QuesCard
@@ -70,6 +76,7 @@ export default function Questions() {
           })
         }
       </StyledGrid>
+      </StyledDiv>
     </>
   );
 }

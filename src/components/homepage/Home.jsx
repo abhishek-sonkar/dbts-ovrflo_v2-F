@@ -5,9 +5,10 @@ import { CssBaseline } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import useWindowPosition from '../../hook/useWindowPosition';
 
+
 const StyledDiv = styled('div')({
     minHeight: '100vh',
-    backgroundImage: `url(${process.env.PUBLIC_URL + '/assets/bg.jpg'})`,
+    backgroundImage: `url(${process.env.PUBLIC_URL + '/assets/bg.png'})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover'
 });
@@ -18,7 +19,12 @@ const StyledAction = styled('div')({
     alignItems: 'center'
 });
 
+const clickHandler = (e) => {
+    console.log('clicked', e);
+}
+
 export default function Home() {
+    
     const checked = useWindowPosition('header');
     return (
         <>
@@ -26,8 +32,8 @@ export default function Home() {
                 <CssBaseline />
                 <Header />
                 <StyledAction id='action'>
-                    <ActionCard title={"Login"} desc={"Already have an account, login here."} checked={checked} />
-                    <ActionCard title={"Signup"} desc={"Don't have an account, signup here."} checked={checked} />
+                    <ActionCard title={"Login"} desc={"Already have an account, login here."} checked={checked} nav={"/login"} />
+                    <ActionCard title={"Signup"} desc={"Don't have an account, signup here."} checked={checked} nav={"/signup"} />
                 </StyledAction>
             </StyledDiv>
         </>
