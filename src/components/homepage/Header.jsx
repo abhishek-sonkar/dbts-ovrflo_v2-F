@@ -45,7 +45,7 @@ export default function Header() {
         <StyledDiv id='header'>
             <StyledAppBar elevation={0}>
                 <StyledToolbar>
-                    <h1 style={{ flexGrow: '1' }}>Doubts<span style={{ color: '#5AFF3D' }}>Overflow</span></h1>
+                    <h1 style={{ flexGrow: '1' }}>Doubts<span style={{ color: '#FF5733' }}>Overflow</span></h1>
                     <IconButton>
                         <StyledSortIcon />
                     </IconButton>
@@ -59,7 +59,7 @@ export default function Header() {
                 <div style={{ textAlign: 'center' }}>
                     <StyledTypography sx={{ fontWeight: 'bold' }} variant='h1'>
                         Welcome to <br />
-                        Doubts<span style={{ color: '#5AFF3D' }}>Overflow</span>
+                        Doubts<span style={{ color: '#FF5733' }}>Overflow</span>
                     </StyledTypography>
                     <Scroll to="action" smooth={true}>
                         <IconButton>

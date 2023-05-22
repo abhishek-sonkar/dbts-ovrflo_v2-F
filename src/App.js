@@ -2,23 +2,27 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-import Home from './layouts/homepage/Home';
-import LogIn from './layouts/login/LogIn';
-import SignUp from './layouts/signup/SignUp';
-import Dashboard from './layouts/dashboard/Dashboard';
-import TempDashboard from './layouts/tempdshbrd/TempDashboard';
-
-import PostQuestion from './layouts/post-ques/PostQuestion';
-import Questions from './layouts/questions/Questions';
-import Solution from './layouts/solution/Solution';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Home from './components/homepage/Home';
+import LogIn from './components/login/LogIn';
+import SignUp from './components/signup/SignUp';
+import Dashboard from './components/dashboard/Dashboard';
+import TempDashboard from './components/tempdshbrd/TempDashboard';
+import PostQuestion from './components/post-ques/PostQuestion';
+import Questions from './components/questions/Questions';
+import Solution from './components/solution/Solution';
 
 function App() {
-
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
   let navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [error, setError] = useState(undefined);
-  const [userName, setUserName] = useState({fname: "Abhishek", lname: "Sonkar"});
+  const [userName, setUserName] = useState({ fname: "Abhishek", lname: "Sonkar" });
   const [email, setEmail] = useState("sonkar.abhishek45");
 
   const signupHandler = (firstName, lastName, email, password) => {
@@ -130,17 +134,19 @@ function App() {
 
   return (
     <>
-      <Routes>
-        <Route path="/login" element={<LogIn loading={loading} loginHandler={loginHandler} />} />
-        <Route path="/signup" element={<SignUp loading={loading} signupHandler={signupHandler} />} />
-        <Route path="/dashboard" element={<Dashboard {...userName} email={email} />} />
-        <Route path="/temp" element={<TempDashboard />} />
-        <Route path="/post" element={<PostQuestion postQuestionHandler={postQuestionHandler} />} />
-        <Route path="/ques" element={<Questions />} />
-        <Route path="/solveQuestion/*" element={<Solution solveQuestionHandler={solveQuestionHandler} />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="*" element={<h1>Error</h1>} />
-      </Routes>
+      <ThemeProvider theme={darkTheme}>
+        <Routes>
+          <Route path="/login" element={<LogIn loading={loading} loginHandler={loginHandler} />} />
+          <Route path="/signup" element={<SignUp loading={loading} signupHandler={signupHandler} />} />
+          <Route path="/dashboard" element={<Dashboard {...userName} email={email} />} />
+          <Route path="/temp" element={<TempDashboard />} />
+          <Route path="/post" element={<PostQuestion postQuestionHandler={postQuestionHandler} />} />
+          <Route path="/ques" element={<Questions />} />
+          <Route path="/solveQuestion/*" element={<Solution solveQuestionHandler={solveQuestionHandler} />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="*" element={<h1>Error</h1>} />
+        </Routes>
+      </ThemeProvider>
     </>
   );
 }

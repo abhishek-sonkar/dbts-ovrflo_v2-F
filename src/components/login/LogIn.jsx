@@ -29,7 +29,6 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
 
 export default function LogIn(props) {
 
@@ -56,7 +55,6 @@ export default function LogIn(props) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -138,6 +136,5 @@ export default function LogIn(props) {
           </Box>
         </Grid>
       </Grid>
-    </ThemeProvider>
   );
 }
