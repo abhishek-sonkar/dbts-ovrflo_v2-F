@@ -51,7 +51,12 @@ export default function Solution(props) {
 
     useEffect(() => {
         const temp = [];
-        axios.get(`http://localhost:8080/getById/${quesId}`)
+        axios.get(`${process.env.REACT_APP_HOST}/getById/${quesId}`,
+        {
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+          }
+        })
             .then(response => {
                 //console.log(response.data);
                 setQuestion({

@@ -23,7 +23,12 @@ export default function Questions() {
 
   useEffect(() => {
     const temp = [];
-    axios.get("http://localhost:8080/allQuestions")
+    axios.get(`${process.env.REACT_APP_HOST}/allQuestions`,
+    {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
+    })
       .then(response => {
         response.data.forEach(element => {
           temp.push({

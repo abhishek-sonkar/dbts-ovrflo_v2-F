@@ -26,7 +26,7 @@ function App() {
   const [email, setEmail] = useState("sonkar.abhishek45");
 
   const signupHandler = (firstName, lastName, email, password) => {
-    axios.post('http://localhost:8080/user/signup', {
+    axios.post(`${process.env.REACT_APP_HOST}/user/signup`, {
       firstName,
       lastName,
       email,
@@ -50,7 +50,7 @@ function App() {
   };
 
   const loginHandler = (email, password) => {
-    axios.post('http://localhost:8080/user/login', {
+    axios.post(`${process.env.REACT_APP_HOST}/user/login`, {
       email,
       password
     })
@@ -77,7 +77,7 @@ function App() {
     title = title.trim();
     quesBody = quesBody.trim();
     if (title.length !== 0 && quesBody.length !== 0) {
-      axios.post('http://localhost:8080/postQuestion',
+      axios.post(`${process.env.REACT_APP_HOST}/postQuestion`,
         {
           title,
           quesBody,
@@ -106,7 +106,7 @@ function App() {
   const solveQuestionHandler = (ans, quesId) => {
     ans = ans.trim();
     if (ans.length !== 0) {
-      axios.put(`http://localhost:8080/solveQuestion/${quesId}`,
+      axios.put(`${process.env.REACT_APP_HOST}/solveQuestion/${quesId}`,
         {
           ans,
           answeredBy: "abhi4"
@@ -144,7 +144,7 @@ function App() {
           <Route path="/ques" element={<Questions />} />
           <Route path="/solveQuestion/*" element={<Solution solveQuestionHandler={solveQuestionHandler} />} />
           <Route path="/home" element={<Home />} />
-          <Route path="*" element={<h1>Error</h1>} />
+          <Route path="*" element={<h1>Host:{process.env.REACT_APP_HOST}</h1>} />
         </Routes>
       </ThemeProvider>
     </>
