@@ -1,0 +1,12 @@
+FROM node:alpine AS development
+
+ENV NODE_ENV development
+
+WORKDIR /dbts-ovrflo_v2-F
+
+COPY ./package.json /dbts-ovrflo_v2-F
+RUN npm install
+
+COPY . /dbts-ovrflo_v2-F
+
+CMD npm start
